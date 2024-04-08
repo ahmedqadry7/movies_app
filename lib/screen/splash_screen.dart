@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,9 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 10),
-        () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => HomeScreen())));
+      Duration(seconds: 1),
+      () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => HomeScreen(),
+        ),
+      ),
+    );
   }
 
   @override
@@ -37,21 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Route',
-                  style: GoogleFonts.acme(
-                    color: Color(0xffFFBB3B),
-                  ),
-                ),
-                //style: TextStyle(color:Color(0xffFFBB3B))),
-                Text(
-                  'supervised by Mohamed Nabil',
-                  style: GoogleFonts.poppins(
-                    color: Color(0xffFFBB3B),
-                  ),
-                ),
-              ],
+              children: [],
             ),
           )
         ],
