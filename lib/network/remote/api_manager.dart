@@ -10,7 +10,7 @@ import 'package:movies_app/models/recommended_movies_model.dart';
 class ApiManager {
   static Future<PopularMoviesModel> getPopular() async {
     var url = Uri.https(Constants.BASE_URL, '/3/movie/popular', {
-      'api_key': '1fa432ee18877d5a1dbb6bea9c6c4df5',
+      'api_key': Constants.api_key,
     });
     var response = await http.get(url);
     var json = jsonDecode(response.body);
@@ -20,7 +20,7 @@ class ApiManager {
 
   static Future<NewReleasesMoviesModel> getNewReleases() async {
     var url = Uri.https(Constants.BASE_URL, '/3/movie/upcoming', {
-      'api_key': '1fa432ee18877d5a1dbb6bea9c6c4df5',
+      'api_key': Constants.api_key,
       'language': 'en-US',
       'page': '1',
     });
@@ -32,9 +32,8 @@ class ApiManager {
   }
 
   static Future<RecommendedMoviesModel> getRecommended() async {
-    var apiKey = '1fa432ee18877d5a1dbb6bea9c6c4df5';
-    var url =
-        Uri.https(Constants.BASE_URL, '/3/movie/top_rated', {'api_key': apiKey});
+    var url = Uri.https(Constants.BASE_URL, '/3/movie/top_rated',
+        {'api_key': Constants.api_key});
 
     var response = await http.get(url);
     var json = jsonDecode(response.body);
@@ -44,13 +43,11 @@ class ApiManager {
   }
 
   static Future<CategoryModel> getCategory() async {
-    var url = Uri.https('api.themoviedb.org', '/3/genre/movie/list', {
-      'api_key': '91d26df9fb64973d39a9e876ce58da73'
-    });
+    var url = Uri.https(Constants.BASE_URL, '/3/genre/movie/list',
+        {'api_key': Constants.api_key});
     var response = await http.get(url);
     var json = jsonDecode(response.body);
     var categoryModel = CategoryModel.fromJson(json);
     return categoryModel;
   }
-
 }

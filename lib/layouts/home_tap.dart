@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:movies_app/common_widgets/new_releases_widget.dart';
 import 'package:movies_app/common_widgets/popular_movie_item.dart';
 import 'package:movies_app/common_widgets/recommended_movies_widget.dart';
-import 'package:movies_app/network/remote/api_manager.dart';
 
 class HomeTap extends StatelessWidget {
   HomeTap({super.key});
