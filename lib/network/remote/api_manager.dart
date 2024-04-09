@@ -2,6 +2,7 @@ import 'dart:convert';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:movies_app/constants.dart';
+import 'package:movies_app/models/category_model.dart';
 import 'package:movies_app/models/new_releases_movies_model.dart';
 import 'package:movies_app/models/popular_movies_model.dart';
 import 'package:movies_app/models/recommended_movies_model.dart';
@@ -33,7 +34,7 @@ class ApiManager {
   static Future<RecommendedMoviesModel> getRecommended() async {
     var apiKey = '1fa432ee18877d5a1dbb6bea9c6c4df5';
     var url =
-        Uri.https(Constants.BASE_URL, '/3/tv/top_rated', {'api_key': apiKey});
+        Uri.https(Constants.BASE_URL, '/3/movie/top_rated', {'api_key': apiKey});
 
     var response = await http.get(url);
     var json = jsonDecode(response.body);
@@ -41,4 +42,15 @@ class ApiManager {
         RecommendedMoviesModel.fromJson(json);
     return recommendedResponse;
   }
+
+  static Future<CategoryModel> getCategory() async {
+    var url = Uri.https('api.themoviedb.org', '/3/genre/movie/list', {
+      'api_key': '91d26df9fb64973d39a9e876ce58da73'
+    });
+    var response = await http.get(url);
+    var json = jsonDecode(response.body);
+    var categoryModel = CategoryModel.fromJson(json);
+    return categoryModel;
+  }
+
 }
