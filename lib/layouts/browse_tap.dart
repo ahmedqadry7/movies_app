@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/layouts/category_fragement.dart';
+import 'package:movies_app/common_widgets/categories.dart';
 import 'package:movies_app/models/Category.dart';
 import 'package:movies_app/models/category_model.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
@@ -11,7 +11,7 @@ class BrowseTap extends StatelessWidget {
   Widget build(BuildContext context) {
     var categories = CategoryType.getAllCategories();
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 50 , horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
       child: Column(
         children: [
           Text(
@@ -35,7 +35,8 @@ class BrowseTap extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       var genres = categoryResponse.genres![index];
-                      return CategoryFragment(genres, categories[index]);
+                      //Screen of images and types of categorires
+                      return Categories(genres, categories[index]);
                     },
                     itemCount: categoryResponse.genres?.length,
                   ),
@@ -44,7 +45,9 @@ class BrowseTap extends StatelessWidget {
                 return Text('Error loading category.');
               } else {
                 return Center(
-                  child: CircularProgressIndicator(color: Colors.amber,),
+                  child: CircularProgressIndicator(
+                    color: Colors.amber,
+                  ),
                 );
               }
             },

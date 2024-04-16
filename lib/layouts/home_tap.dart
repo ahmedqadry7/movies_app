@@ -35,7 +35,7 @@ class HomeTap extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          const SizedBox(
+          SizedBox(
             height: 245,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

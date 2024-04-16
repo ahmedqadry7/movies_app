@@ -1,18 +1,18 @@
-class RecommendedMoviesModel {
+class CategoryMoviesModel {
   int? page;
-  List<RecommendedResults>? results;
+  List<Results>? results;
   int? totalPages;
   int? totalResults;
 
-  RecommendedMoviesModel(
+  CategoryMoviesModel(
       {this.page, this.results, this.totalPages, this.totalResults});
 
-  RecommendedMoviesModel.fromJson(Map<String, dynamic> json) {
+  CategoryMoviesModel.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
-      results = <RecommendedResults>[];
+      results = <Results>[];
       json['results'].forEach((v) {
-        results!.add(new RecommendedResults.fromJson(v));
+        results!.add(new Results.fromJson(v));
       });
     }
     totalPages = json['total_pages'];
@@ -31,7 +31,7 @@ class RecommendedMoviesModel {
   }
 }
 
-class RecommendedResults {
+class Results {
   bool? adult;
   String? backdropPath;
   List<int>? genreIds;
@@ -47,7 +47,7 @@ class RecommendedResults {
   double? voteAverage;
   int? voteCount;
 
-  RecommendedResults(
+  Results(
       {this.adult,
       this.backdropPath,
       this.genreIds,
@@ -63,7 +63,7 @@ class RecommendedResults {
       this.voteAverage,
       this.voteCount});
 
-  RecommendedResults.fromJson(Map<String, dynamic> json) {
+  Results.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     genreIds = json['genre_ids'].cast<int>();

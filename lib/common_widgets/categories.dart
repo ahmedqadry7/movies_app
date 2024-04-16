@@ -3,17 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/Category.dart';
 import 'package:movies_app/models/category_model.dart';
-import 'package:movies_app/screen/categories_screen.dart';
+import 'package:movies_app/screen/category_movies_screen.dart';
 
-class CategoryFragment extends StatelessWidget {
+class Categories extends StatelessWidget {
   Genres genres;
   CategoryType categoryType;
-  CategoryFragment(this.genres, this.categoryType, {super.key});
+  Categories(this.genres, this.categoryType, {super.key});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, CategoriesScreen.routeName , arguments: genres.id);
+        Navigator.pushNamed(context, CategoryMoviesDetails.routeName , arguments: genres);
+        print(genres.name);
+        print(genres.id);
       },
       child: Stack(
         alignment: Alignment.center,
@@ -43,7 +45,6 @@ class CategoryFragment extends StatelessWidget {
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    fontFamily: "a",
                   ),
                 ),
               ),

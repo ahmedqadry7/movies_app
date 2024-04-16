@@ -1,9 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/items/new_release_item.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
 
-class NewReleasesWidget extends StatelessWidget {
+class NewReleasesWidget extends StatefulWidget {
   const NewReleasesWidget({super.key});
+
+  @override
+  State<NewReleasesWidget> createState() => _NewReleasesWidgetState();
+}
+
+class _NewReleasesWidgetState extends State<NewReleasesWidget> {
+  bool isBookmarked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,31 +31,7 @@ class NewReleasesWidget extends StatelessWidget {
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return SizedBox(
-                  height: 200,
-                  width: 120,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    alignment: Alignment.topLeft,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          'https://image.tmdb.org/t/p/original${newRealeasesList[index].backdropPath}',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Image.asset('assets/images/bookmark.png'),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return NewReleaseItem(results: newRealeasesList[index] , isClicked: isBookmarked,);
               },
               separatorBuilder: (context, index) => SizedBox(
                     width: 15,
