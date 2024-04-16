@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:movies_app/models/bookmarked_movies_model.dart';
 import 'package:movies_app/models/new_releases_movies_model.dart';
+import 'package:movies_app/network/DB/firebase_functions.dart';
 
 class NewReleaseItem extends StatefulWidget {
   NewReleasesResults results;
@@ -36,8 +38,14 @@ class _NewReleaseItemState extends State<NewReleaseItem> {
               padding: const EdgeInsets.all(5.0),
               child: InkWell(
                 onTap: () {
-                  //Save to watchlist from here
+                  //Add to watchlist from here....................
                   setState(() {
+                    BookMarkedMoviesModel movie = BookMarkedMoviesModel(
+                        backdropPath:
+                            'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
+                        releaseDate: widget.results.releaseDate.toString(),
+                        title: widget.results.title.toString());
+                    FirebaseFunctions.addMovie(movie);
                     widget.isClicked = !widget.isClicked;
                   });
                 },

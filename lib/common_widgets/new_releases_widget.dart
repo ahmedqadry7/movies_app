@@ -29,14 +29,18 @@ class _NewReleasesWidgetState extends State<NewReleasesWidget> {
         }
         return Expanded(
           child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return NewReleaseItem(results: newRealeasesList[index] , isClicked: isBookmarked,);
-              },
-              separatorBuilder: (context, index) => SizedBox(
-                    width: 15,
-                  ),
-              itemCount: newRealeasesList.length),
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return NewReleaseItem(
+                results: newRealeasesList[index],
+                isClicked: isBookmarked,
+              );
+            },
+            separatorBuilder: (context, index) => SizedBox(
+              width: 15,
+            ),
+            itemCount: newRealeasesList.length,
+          ),
         );
       },
     );

@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:movies_app/models/bookmarked_movies_model.dart';
 import 'package:movies_app/models/recommended_movies_model.dart';
+import 'package:movies_app/network/DB/firebase_functions.dart';
 
 class RecommendedItem extends StatefulWidget {
   RecommendedResults results;
@@ -50,6 +52,13 @@ class _RecommendedItemState extends State<RecommendedItem> {
                         //Add to watchList from here...
                         onTap: () {
                           widget.isBookmarked = !widget.isBookmarked;
+                          BookMarkedMoviesModel movie = BookMarkedMoviesModel(
+                              backdropPath:
+                                  'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
+                              releaseDate:
+                                  widget.results.releaseDate.toString(),
+                              title: widget.results.title.toString());
+                          FirebaseFunctions.addMovie(movie);
                           setState(() {});
                         },
                         child: widget.isBookmarked
