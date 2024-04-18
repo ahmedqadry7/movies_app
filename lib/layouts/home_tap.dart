@@ -12,47 +12,49 @@ class HomeTap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 50, right: 20, left: 20, bottom: 20),
-      child: Column(
-        children: [
-          PopularWidget(),
-          const SizedBox(
-            height: 200,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "New Releases",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                NewReleasesWidget(),
-              ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            PopularWidget(),
+            const SizedBox(
+              height: 200,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "New Releases",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  NewReleasesWidget(),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          SizedBox(
-            height: 245,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Recommended",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400),
-                ),
-                SizedBox(height: 5),
-                RecommendedMoviesWidget(),
-              ],
+            const SizedBox(height: 10),
+            const SizedBox(
+              height: 245,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Recommended",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(height: 5),
+                  RecommendedMoviesWidget(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

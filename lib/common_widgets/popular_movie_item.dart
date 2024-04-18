@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
 
+import '../screen/movie_details.dart';
+
 class PopularWidget extends StatelessWidget {
   final PageController _controller = PageController(viewportFraction: 0.9);
   PopularWidget({super.key});
@@ -21,6 +23,7 @@ class PopularWidget extends StatelessWidget {
           return Center(child: Text("No Movies"));
         }
         return SizedBox(
+
           height: 250,
           child: Column(
             children: [
@@ -63,6 +66,7 @@ class PopularWidget extends StatelessWidget {
                   },
                 ),
               ),
+
             ],
           ),
         );

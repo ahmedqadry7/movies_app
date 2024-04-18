@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/items/recommended_item.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
 
+import '../screen/movie_details.dart';
+
 class RecommendedMoviesWidget extends StatelessWidget {
   bool isBookmarked = false;
   RecommendedMoviesWidget({super.key});
