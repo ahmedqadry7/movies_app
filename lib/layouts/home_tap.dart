@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:movies_app/common_widgets/new_releases_widget.dart';
 import 'package:movies_app/common_widgets/popular_movie_item.dart';
 import 'package:movies_app/common_widgets/recommended_movies_widget.dart';
@@ -15,7 +16,7 @@ class HomeTap extends StatelessWidget {
         child: Column(
           children: [
             PopularWidget(),
-            const SizedBox(
+             SizedBox(
               height: 200,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +36,7 @@ class HomeTap extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            SizedBox(
+             SizedBox(
               height: 245,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +49,7 @@ class HomeTap extends StatelessWidget {
                         fontWeight: FontWeight.w400),
                   ),
                   SizedBox(height: 5),
-                  RecommendedMoviesWidget(),
+                 RecommendedMoviesWidget()
                 ],
               ),
             ),

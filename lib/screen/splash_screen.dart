@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 1),
+      Duration(seconds: 5),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => HomeScreen(),
@@ -39,7 +40,16 @@ class _SplashScreenState extends State<SplashScreen> {
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [],
+              children: [
+                Text('ROUTE',style: GoogleFonts.akatab(
+                color: Color(0xffFFBB3B),
+                fontSize: 20,
+                fontWeight: FontWeight.w700),),
+                Text('Eng Mayar Taha Mohamed \n Eng Ahmed Qadry Taha',style: GoogleFonts.akatab(
+                color: Color(0xffFFBB3B),
+                fontSize: 20,
+                fontWeight: FontWeight.w700),),
+              ],
             ),
           )
         ],
