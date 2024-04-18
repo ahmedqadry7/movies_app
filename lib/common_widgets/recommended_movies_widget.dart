@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/items/recommended_item.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
 
-import '../screen/movie_details.dart';
-
 class RecommendedMoviesWidget extends StatelessWidget {
   bool isBookmarked = false;
   RecommendedMoviesWidget({super.key});
@@ -31,8 +29,9 @@ class RecommendedMoviesWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return RecommendedItem(
-                  isBookmarked: isBookmarked,
-                  results: recommendedMovies[index]);
+                isBookmarked: isBookmarked,
+                results: recommendedMovies[index],
+              );
             },
             separatorBuilder: (context, index) => SizedBox(
               width: 12,
