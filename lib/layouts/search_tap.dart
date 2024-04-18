@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:movies_app/models/search_model.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
 
 class SearchTap extends StatelessWidget {

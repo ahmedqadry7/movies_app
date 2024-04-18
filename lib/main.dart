@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/screen/category_movies_screen.dart';
 import 'package:movies_app/screen/home_screen.dart';
+import 'package:movies_app/screen/movie_details_screen.dart';
 import 'package:movies_app/screen/splash_screen.dart';
 import 'package:movies_app/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.theme,
       initialRoute: SplashScreen.routeName,
       routes: {
+        //RecommendedMovieDetails.routeName :(context) => RecommendedMovieDetails(),
+        MovieDetailsScreen.routeName:(context) => MovieDetailsScreen(),
         SplashScreen.routeName: (context) => SplashScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
         CategoryMoviesDetails.routeName: (context) => CategoryMoviesDetails(),

@@ -22,7 +22,9 @@ class RecommendedMoviesWidget extends StatelessWidget {
         var recommendedMovies = snapshot.data?.results ?? [];
         //print('recommendedMovies[1].id: ${recommendedMovies[0].id}');
         if (recommendedMovies.isEmpty) {
-          return Center(child: Text("No Movies"));
+          return Center(
+            child: Text("No Movies"),
+          );
         }
         return Expanded(
           child: ListView.separated(
