@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
 
@@ -63,7 +64,9 @@ class _SearchTapState extends State<SearchTap> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: CircularProgressIndicator(color: Colors.yellow,),
+                      child: CircularProgressIndicator(
+                        color: Colors.yellow,
+                      ),
                     );
                   }
                   if (snapshot.hasError) {
@@ -111,9 +114,13 @@ class _SearchTapState extends State<SearchTap> {
                                   width: 200,
                                   height: 100,
                                   child: data[index].backdropPath != null
-                                      ? Image.network(
-                                          'https://image.tmdb.org/t/p/original${data[index].backdropPath ?? ""}',
-                                          fit: BoxFit.cover,
+                                      ? CachedNetworkImage(
+                                          imageUrl:
+                                              'https://image.tmdb.org/t/p/original${data[index].backdropPath ?? ""}',
+                                          placeholder: (context, url) =>
+                                              CircularProgressIndicator(color: Colors.yellow,),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         )
                                       : Center(
                                           child: Text(

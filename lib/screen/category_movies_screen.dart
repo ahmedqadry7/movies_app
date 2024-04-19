@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/category_model.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
@@ -73,9 +74,13 @@ class CategoryMoviesDetails extends StatelessWidget {
                         SizedBox(
                           width: 200,
                           height: 100,
-                          child: Image.network(
-                            'https://image.tmdb.org/t/p/original${categoryMovies[index].backdropPath}',
+                          child: CachedNetworkImage(
                             fit: BoxFit.cover,
+                            imageUrl: 'https://image.tmdb.org/t/p/original${categoryMovies[index].backdropPath}',
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(color: Colors.yellow,),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
                         ),
                         SizedBox(

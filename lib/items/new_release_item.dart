@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/bookmarked_movies_model.dart';
 import 'package:movies_app/models/new_releases_movies_model.dart';
@@ -38,9 +39,11 @@ class _NewReleaseItemState extends State<NewReleaseItem> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
+              child: CachedNetworkImage(
                 fit: BoxFit.cover,
+                imageUrl: 'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
+                placeholder: (context, url) => CircularProgressIndicator(color: Colors.yellow,),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             Positioned(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
 import 'package:movies_app/screen/movie_details_screen.dart';
@@ -12,7 +13,7 @@ class PopularWidget extends StatelessWidget {
       future: ApiManager.getPopular(),
       builder: (context, snapshot) {
         if (ConnectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(color: Colors.yellow,));
         }
         if (snapshot.hasError) {
           return Text("Error");
@@ -44,9 +45,12 @@ class PopularWidget extends StatelessWidget {
                       },
                       child: Column(
                         children: [
-                          Image.network(
-                            'https://image.tmdb.org/t/p/original${popularMovies[index].backdropPath}',
-                            fit: BoxFit.cover,
+                          CachedNetworkImage(
+                            imageUrl: 'https://image.tmdb.org/t/p/original${popularMovies[index].backdropPath}',
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(color: Colors.yellow,),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
                           SizedBox(
                             height: 10,

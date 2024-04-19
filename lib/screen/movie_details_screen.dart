@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_import, must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -40,7 +41,10 @@ class MovieDetailsScreen extends StatelessWidget {
                 future: ApiManager.getMovieDetails(id),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator(color: Colors.yellow,));
+                    return Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.yellow,
+                    ));
                   }
                   if (snapshot.hasError) {
                     return Center(child: Text('Something Went Wrong'));
@@ -56,9 +60,16 @@ class MovieDetailsScreen extends StatelessWidget {
                       Stack(
                         children: [
                           bath != null
-                              ? Image.network(
-                                  'https://image.tmdb.org/t/p/original$bath',
+                              ? CachedNetworkImage(
                                   fit: BoxFit.cover,
+                                  imageUrl:
+                                      'https://image.tmdb.org/t/p/original$bath',
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(
+                                    color: Colors.yellow,
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 )
                               : Text(
                                   "No Image available",
@@ -104,9 +115,14 @@ class MovieDetailsScreen extends StatelessWidget {
                             width: 140,
                             height: 200,
                             child: bath != null
-                                ? Image.network(
-                                    'https://image.tmdb.org/t/p/original$bath',
-                                    fit: BoxFit.cover,
+                                ? CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/original$bath',
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(color: Colors.yellow,),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                                   )
                                 : Text(
                                     "No Image available",

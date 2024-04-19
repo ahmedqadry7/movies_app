@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/bookmarked_movies_model.dart';
 import 'package:movies_app/models/similar_movies_model.dart';
@@ -39,13 +40,17 @@ class _MoreLikeThisNewReleaseItemState extends State<MoreLikeThisItem> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: widget.results.backdropPath != null
-                        ? Image.network(
-                            'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
-                            fit: BoxFit.cover,
+                        ? CachedNetworkImage(
+                          fit: BoxFit.cover,
+                            imageUrl: 'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(color: Colors.yellow,),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           )
                         : Center(
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 25,top: 40),
+                              padding: const EdgeInsets.only(left: 25, top: 40),
                               child: Text(
                                 'No image available',
                                 style: TextStyle(color: Colors.white),
@@ -70,7 +75,6 @@ class _MoreLikeThisNewReleaseItemState extends State<MoreLikeThisItem> {
                                     widget.results.releaseDate.toString(),
                                 title: widget.results.title.toString());
                             FirebaseFunctions.addMovie(movie);
-                            
                           });
                         },
                         child: Image.asset(
