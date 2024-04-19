@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/models/category_model.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
+import 'package:movies_app/screen/movie_details_screen.dart';
 
 class CategoryMoviesDetails extends StatelessWidget {
   static const String routeName = "categoryMoviesDetails";
@@ -52,44 +53,56 @@ class CategoryMoviesDetails extends StatelessWidget {
             },
             itemBuilder: (context, index) {
               //Row of movie, Inkwell here
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        height: 100,
-                        child: Image.network(
-                          'https://image.tmdb.org/t/p/original${categoryMovies[index].backdropPath}',
-                          fit: BoxFit.cover,
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    MovieDetailsScreen.routeName,
+                    arguments: {
+                      'id': categoryMovies[index].id,
+                      'title': categoryMovies[index].title,
+                    },
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          height: 100,
+                          child: Image.network(
+                            'https://image.tmdb.org/t/p/original${categoryMovies[index].backdropPath}',
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                categoryMovies[index].title ?? "",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  categoryMovies[index].title ?? "",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
                               ),
-                            ),
-                            Text(
-                              categoryMovies[index].releaseDate ?? "",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                              Text(
+                                categoryMovies[index].releaseDate ?? "",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );

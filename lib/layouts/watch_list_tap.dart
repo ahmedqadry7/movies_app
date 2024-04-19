@@ -53,7 +53,7 @@ class WatchListTap extends StatelessWidget {
                       height: 10,
                     ),
                     const Text(
-                      "No Movies Found",
+                      "No Movies",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],

@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:movies_app/items/moreLikethis_item.dart';
+import 'package:movies_app/common_widgets/more_like_this_widget.dart';
 import 'package:movies_app/network/remote/api_manager.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
@@ -40,7 +40,7 @@ class MovieDetailsScreen extends StatelessWidget {
                 future: ApiManager.getMovieDetails(id),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator(color: Colors.yellow,));
                   }
                   if (snapshot.hasError) {
                     return Center(child: Text('Something Went Wrong'));
@@ -55,10 +55,16 @@ class MovieDetailsScreen extends StatelessWidget {
                     children: [
                       Stack(
                         children: [
-                          Image.network(
-                            'https://image.tmdb.org/t/p/original$bath',
-                            fit: BoxFit.cover,
-                          ),
+                          bath != null
+                              ? Image.network(
+                                  'https://image.tmdb.org/t/p/original$bath',
+                                  fit: BoxFit.cover,
+                                )
+                              : Text(
+                                  "No Image available",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
                           Positioned(
                             bottom: 100,
                             left: 180,
@@ -97,10 +103,16 @@ class MovieDetailsScreen extends StatelessWidget {
                           Container(
                             width: 140,
                             height: 200,
-                            child: Image.network(
-                              'https://image.tmdb.org/t/p/original$bath',
-                              fit: BoxFit.cover,
-                            ),
+                            child: bath != null
+                                ? Image.network(
+                                    'https://image.tmdb.org/t/p/original$bath',
+                                    fit: BoxFit.cover,
+                                  )
+                                : Text(
+                                    "No Image available",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
                           ),
                           SizedBox(
                             width: 10,
@@ -160,53 +172,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    FutureBuilder(
-                      future: ApiManager.getSimilar(id),
-                      builder: (context, snapshot) {
-                        if (ConnectionState == ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (snapshot.hasError) {
-                          return Text("Error");
-                        }
-                        var similarMoviesList = snapshot.data?.results ?? [];
-                        if (similarMoviesList.isEmpty) {
-                          return Center(
-                            child: Text("No Movies"),
-                          );
-                        }
-                        return Expanded(
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              //Item
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    MovieDetailsScreen.routeName,
-                                    arguments: {
-                                      'id': similarMoviesList[index].id,
-                                      'title': similarMoviesList[index].title,
-                                    },
-                                  );
-                                },
-                                child: MoreLikeThisItem(
-                                  results: similarMoviesList[index],
-                                  isClicked: isBookmarked,
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) => SizedBox(
-                              width: 12,
-                            ),
-                            itemCount: similarMoviesList.length,
-                          ),
-                        );
-                      },
-                    ),
+                    MoreLikeThisWidget(id: id, isBookmarked: isBookmarked),
                   ],
                 ),
               ),

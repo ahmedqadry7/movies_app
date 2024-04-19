@@ -22,6 +22,7 @@ class BrowseTap extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          //This builder has only names of Categories, images are from assets
           FutureBuilder<CategoryModel>(
             future: ApiManager.getCategory(),
             builder: (context, snapshot) {

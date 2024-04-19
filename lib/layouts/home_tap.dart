@@ -14,9 +14,10 @@ class HomeTap extends StatelessWidget {
       padding: const EdgeInsets.only(top: 50, right: 20, left: 20, bottom: 20),
       child: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             PopularWidget(),
-             SizedBox(
+            SizedBox(
               height: 200,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +37,7 @@ class HomeTap extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-             SizedBox(
+            SizedBox(
               height: 245,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +50,7 @@ class HomeTap extends StatelessWidget {
                         fontWeight: FontWeight.w400),
                   ),
                   SizedBox(height: 5),
-                 RecommendedMoviesWidget()
+                  RecommendedMoviesWidget()
                 ],
               ),
             ),

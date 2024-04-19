@@ -15,7 +15,6 @@ class SearchTap extends StatefulWidget {
 class _SearchTapState extends State<SearchTap> {
   String query = '';
 
-  //TextEditingController q = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,18 +31,22 @@ class _SearchTapState extends State<SearchTap> {
               ),
               child: TextFormField(
                 decoration: InputDecoration(
-                    hintText: 'Search',
-                    hintStyle: TextStyle(color: Colors.white, fontSize: 20),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 30,
-                    )),
+                  hintText: 'find a movie...',
+                  hintStyle: TextStyle(color: Colors.white, fontSize: 20),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  border: InputBorder.none,
+                ),
                 onChanged: (String value) {
                   query = value;
                   ApiManager.searchData(query);
                   setState(() {});
                 },
+                style: TextStyle(color: Colors.white, fontSize: 20),
+                cursorColor: Colors.yellow,
               ),
             ),
             SizedBox(
@@ -51,77 +54,112 @@ class _SearchTapState extends State<SearchTap> {
             )
           ],
         ),
-        body: Column(
-          children: [
-            FutureBuilder(
-              future: ApiManager.searchData(query),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Center(child: Text('Something Went Wrong'));
-                }
-                var data = snapshot.data?.results ?? [];
-                return Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      // return
-                      return InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            MovieDetailsScreen.routeName,
-                            arguments: {
-                              'id': data[index].id,
-                              'title':  data[index].title,
-                            },
-                          );
-                        },
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 200,
-                                height: 100,
-                                child: Image.network(
-                                  'https://image.tmdb.org/t/p/original${data[index].backdropPath}',
-                                  fit: BoxFit.cover,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              FutureBuilder(
+                future: ApiManager.searchData(query),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(color: Colors.yellow,),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Something Went Wrong'),
+                    );
+                  }
+                  var data = snapshot.data?.results ?? [];
+                  return Expanded(
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Divider(
+                              thickness: 3,
+                              height: 4,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        );
+                      },
+                      itemBuilder: (context, index) {
+                        // return
+                        return InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              MovieDetailsScreen.routeName,
+                              arguments: {
+                                'id': data[index].id,
+                                'title': data[index].title,
+                              },
+                            );
+                          },
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 200,
+                                  height: 100,
+                                  child: data[index].backdropPath != null
+                                      ? Image.network(
+                                          'https://image.tmdb.org/t/p/original${data[index].backdropPath ?? ""}',
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Center(
+                                          child: Text(
+                                            'No Image available',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                       data[index].title??'',
-                                        style: TextStyle(color: Colors.white, fontSize: 16),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          data[index].title ?? '',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16),
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      data[index].releaseDate??'',
-                                      style: TextStyle(color: Colors.white, fontSize: 12),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
+                                      Text(
+                                        data[index].releaseDate ?? '',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    itemCount: data.length,
-                  ),
-                );
-              },
-            )
-          ],
+                        );
+                      },
+                      itemCount: data.length,
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
         ));
   }
 }

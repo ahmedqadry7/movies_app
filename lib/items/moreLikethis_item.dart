@@ -8,16 +8,13 @@ import 'package:movies_app/network/DB/firebase_functions.dart';
 class MoreLikeThisItem extends StatefulWidget {
   SimilarMoviesResults results;
   bool isClicked;
-  MoreLikeThisItem(
-      {super.key, required this.results, required this.isClicked});
+  MoreLikeThisItem({super.key, required this.results, required this.isClicked});
 
   @override
-  State<MoreLikeThisItem> createState() =>
-      _MoreLikeThisNewReleaseItemState();
+  State<MoreLikeThisItem> createState() => _MoreLikeThisNewReleaseItemState();
 }
 
-class _MoreLikeThisNewReleaseItemState
-    extends State<MoreLikeThisItem> {
+class _MoreLikeThisNewReleaseItemState extends State<MoreLikeThisItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +23,7 @@ class _MoreLikeThisNewReleaseItemState
         borderRadius: BorderRadius.circular(12),
       ),
       width: 130,
+      height: 200,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -40,10 +38,20 @@ class _MoreLikeThisNewReleaseItemState
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
-                      fit: BoxFit.cover,
-                    ),
+                    child: widget.results.backdropPath != null
+                        ? Image.network(
+                            'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
+                            fit: BoxFit.cover,
+                          )
+                        : Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 25,top: 40),
+                              child: Text(
+                                'No image available',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
                   ),
                   Positioned(
                     top: 0,
@@ -54,6 +62,7 @@ class _MoreLikeThisNewReleaseItemState
                         onTap: () {
                           //Add to watchlist from here....................
                           setState(() {
+                            widget.isClicked = !widget.isClicked;
                             BookMarkedMoviesModel movie = BookMarkedMoviesModel(
                                 backdropPath:
                                     'https://image.tmdb.org/t/p/original${widget.results.backdropPath}',
@@ -61,12 +70,13 @@ class _MoreLikeThisNewReleaseItemState
                                     widget.results.releaseDate.toString(),
                                 title: widget.results.title.toString());
                             FirebaseFunctions.addMovie(movie);
-                            widget.isClicked = !widget.isClicked;
+                            
                           });
                         },
                         child: Image.asset(
-                          widget.isClicked ?
-                          'assets/images/bookmarked.png' : 'assets/images/bookmark.png',
+                          widget.isClicked
+                              ? 'assets/images/bookmarked.png'
+                              : 'assets/images/bookmark.png',
                         ),
                       ),
                     ),

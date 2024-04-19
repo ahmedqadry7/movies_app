@@ -21,7 +21,9 @@ class Categories extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              
+            },
             child: Image.asset(
               'assets/images/${categoryType.imageName}',
               width: 180,

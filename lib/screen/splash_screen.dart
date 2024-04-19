@@ -38,18 +38,21 @@ class _SplashScreenState extends State<SplashScreen> {
           Expanded(child: Image.asset('assets/images/movies.png')),
           SizedBox(height: 50),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text('ROUTE',style: GoogleFonts.akatab(
-                color: Color(0xffFFBB3B),
-                fontSize: 20,
-                fontWeight: FontWeight.w700),),
-                Text('Eng Mayar Taha Mohamed \n Eng Ahmed Qadry Taha',style: GoogleFonts.akatab(
-                color: Color(0xffFFBB3B),
-                fontSize: 20,
-                fontWeight: FontWeight.w700),),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('Your Movie Adventure Starts Here..',style: GoogleFonts.akatab(
+                  color: Color(0xffFFBB3B),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700),),
+                  // Text('Eng Mayar Taha Mohamed \n Eng Ahmed Qadry Taha',style: GoogleFonts.akatab(
+                  // color: Color(0xffFFBB3B),
+                  // fontSize: 20,
+                  // fontWeight: FontWeight.w700),),
+                ],
+              ),
             ),
           )
         ],

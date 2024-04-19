@@ -82,23 +82,33 @@ class ApiManager {
     return CategoryMoviesModel.fromJson(json);
   }
 
-    static Future<MovieDetailsModel> getMovieDetails(int id) async{
-    Uri url =Uri.parse('https://api.themoviedb.org/3/movie/$id?language=en-US',
+  static Future<MovieDetailsModel> getMovieDetails(int id) async {
+    Uri url = Uri.parse(
+      'https://api.themoviedb.org/3/movie/$id?language=en-US',
     );
-    http.Response response=await http.get(url,headers: {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzE3MmMzODNhZDY4OGY3MWFmOWNlYjcwOGFkNjNiNCIsInN1YiI6IjY2MWQ1ZjFmMGU1YWJhMDE4NmY1ODA3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0bkmenMOwDyksVQdPwze5hXjEG8jraZ3P1K2vnjKdZA''',
-    'accept': 'application/json'});
-    Map<String,dynamic> json = jsonDecode(response.body);
+    http.Response response = await http.get(url, headers: {
+      'Authorization':
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzE3MmMzODNhZDY4OGY3MWFmOWNlYjcwOGFkNjNiNCIsInN1YiI6IjY2MWQ1ZjFmMGU1YWJhMDE4NmY1ODA3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0bkmenMOwDyksVQdPwze5hXjEG8jraZ3P1K2vnjKdZA'
+              '',
+      'accept': 'application/json'
+    });
+    Map<String, dynamic> json = jsonDecode(response.body);
     return MovieDetailsModel.fromJson(json);
+  }
 
-}
   static Future<SimilarMoviesModel> getSimilar(int id) async {
     Uri url = Uri.parse(
       'https://api.themoviedb.org/3/movie/$id/similar?language=en-US&page=1',
     );
-    http.Response response = await http.get(url, headers: {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzE3MmMzODNhZDY4OGY3MWFmOWNlYjcwOGFkNjNiNCIsInN1YiI6IjY2MWQ1ZjFmMGU1YWJhMDE4NmY1ODA3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0bkmenMOwDyksVQdPwze5hXjEG8jraZ3P1K2vnjKdZA''',
-      'accept': 'application/json'
-    });
+    http.Response response = await http.get(
+      url,
+      headers: {
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzE3MmMzODNhZDY4OGY3MWFmOWNlYjcwOGFkNjNiNCIsInN1YiI6IjY2MWQ1ZjFmMGU1YWJhMDE4NmY1ODA3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0bkmenMOwDyksVQdPwze5hXjEG8jraZ3P1K2vnjKdZA'
+                '',
+        'accept': 'application/json'
+      },
+    );
     Map<String, dynamic> json = jsonDecode(response.body);
     return SimilarMoviesModel.fromJson(json);
   }
@@ -107,10 +117,15 @@ class ApiManager {
     Uri url = Uri.parse(
       'https://api.themoviedb.org/3/search/movie?query=$q&include_adult=false&language=en-US&page=1',
     );
-    http.Response response = await http.get(url, headers: {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzE3MmMzODNhZDY4OGY3MWFmOWNlYjcwOGFkNjNiNCIsInN1YiI6IjY2MWQ1ZjFmMGU1YWJhMDE4NmY1ODA3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0bkmenMOwDyksVQdPwze5hXjEG8jraZ3P1K2vnjKdZA''',
-      'accept': 'application/json'
-    });
+    http.Response response = await http.get(
+      url,
+      headers: {
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YzE3MmMzODNhZDY4OGY3MWFmOWNlYjcwOGFkNjNiNCIsInN1YiI6IjY2MWQ1ZjFmMGU1YWJhMDE4NmY1ODA3NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0bkmenMOwDyksVQdPwze5hXjEG8jraZ3P1K2vnjKdZA'
+                '',
+        'accept': 'application/json'
+      },
+    );
     print(response.body);
     Map<String, dynamic> json = jsonDecode(response.body);
     return SearchModel.fromJson(json);
